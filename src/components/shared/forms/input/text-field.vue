@@ -90,4 +90,11 @@ export default defineComponent({
   color: #585858;
   background-color: #cecece;
 }
+
+.text-field_disabled .text-field__input input:disabled {
+  color: #585858;
+  background-color: #cecece;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
 </style>

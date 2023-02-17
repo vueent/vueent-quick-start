@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img alt="VueenT logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="VueEnt logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <nav>

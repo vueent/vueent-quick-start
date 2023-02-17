@@ -22,8 +22,9 @@ export default defineComponent({
   },
 
   setup() {
-    const controller = useController(AddController);
+    const controller = useController(AddController); // get the route controller
 
+    // bind the controller's properties and methods to the component
     const client = computed(() => controller.client);
     const fail = computed(() => controller.saveStatus === SaveStatus.fail);
     const success = computed(() => controller.saveStatus === SaveStatus.success);

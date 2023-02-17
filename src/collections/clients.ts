@@ -7,19 +7,52 @@ import * as api from '@/api/clients';
 export class ClientsCollection extends Collection<Model, Data, EncodedData, ModelType> {
   constructor() {
     super({
-      construct: Model,
+      construct: Model, // model constructor
+      /**
+       * Creates a record in the storage.
+       *
+       * It may return a created record or a primary key depends on your server API implementation.
+       *
+       * @returns created record
+       */
       createData: (data: EncodedData): Promise<unknown> => {
         return api.create(data);
       },
+      /**
+       * Removes a record from the storage.
+       *
+       * @param id primary key
+       */
       destroyData: (id: unknown): Promise<void> => {
         return api.destroy({ id: id as number });
       },
+      /**
+       * Updates a record in the storage.
+       *
+       * It may return an updated record or nothing depends on your server API implementation.
+       *
+       * @param id primary key
+       * @param data encoded data
+       * @returns updated record
+       */
       updateData: (id: unknown, data: EncodedData): Promise<unknown> => {
         return api.update({ ...data, id: id as number });
       },
+      /**
+       * Loads a single record from the storage.
+       *
+       * @param pk primary key
+       * @returns record
+       */
       loadOneData: (pk: unknown): Promise<EncodedData> => {
         return api.findOne({ id: pk as number });
       },
+      /**
+       * Loads multiple records from the storage.
+       *
+       * @param options load options, including local and remote filters, query parameters and path parameters
+       * @returns records list
+       */
       loadManyData: async (options: {
         queryParams?: {
           ids?: number[];
@@ -34,6 +67,12 @@ export class ClientsCollection extends Collection<Model, Data, EncodedData, Mode
     });
   }
 
+  /**
+   * Converts an encoded data to internal.
+   *
+   * @param encoded encoded data
+   * @returns decoded data
+   */
   public normalize(encoded: EncodedData): Data {
     return {
       id: encoded.id,
@@ -44,6 +83,12 @@ export class ClientsCollection extends Collection<Model, Data, EncodedData, Mode
     };
   }
 
+  /**
+   * Converts an internal representation to the encoded.
+   *
+   * @param data decoded data
+   * @returns encoded data
+   */
   public denormalize(data: Data): EncodedData {
     return {
       id: data.id,

@@ -43,8 +43,9 @@ export default defineComponent({
   },
 
   setup() {
-    const controller = useController(HomeController);
+    const controller = useController(HomeController); // get the route controller
 
+    // bind the controller's properties and methods to the component
     const clients = computed(() => controller.items);
     const loading = computed(() => controller.loading);
     const loadingFailed = computed(() => controller.loadingFailed);

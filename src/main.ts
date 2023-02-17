@@ -5,8 +5,11 @@ import { init } from '@/storage';
 
 import './assets/main.css';
 
+/**
+ * Initializes IndexedDB and runs the app, unnecessary in production.
+ */
 async function main() {
-  await init();
+  await init(); // initializing the storage
 
   const app = createApp(App);
 

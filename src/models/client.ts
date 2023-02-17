@@ -44,9 +44,11 @@ export function makeInitialData(): Data {
   return { id: 0, firstName: '', lastName: '', phone: '', age: '' };
 }
 
-// маска, показывающая - какие поля откатывать при вызове rollback
-// в данном примере поле name будет сброшено, а поле id - нет
-// маску можно не указывать вовсе, тогда исходное состояние будет возвращено целиком
+/**
+ * A mask that marks the fields that will be rolled back.
+ *
+ * This object is optional and can be omitted, in which case all fields, including the primary key, will be rolled back.
+ */
 export const rollbackMask = {
   firstName: true,
   lastName: true,
@@ -55,8 +57,13 @@ export const rollbackMask = {
 } as const;
 
 // правила валидации, они должны возвращать true или строку текстом ошибки
+
+/**
+ * Validation rules.
+ *
+ * Validation rule must return `true` or a string with an error message.
+ */
 export const validations = {
-  // проверяем, что имя не пустая строка, и что длина не превышает 255 символов
   firstName: simplify(
     v9s<string>()
       .minLength(1, 'Enter first name')
@@ -70,7 +77,6 @@ export const validations = {
       .use(name, 'Remove invalid characters')
   ),
   phone: simplify(v9s<string>().minLength(1, 'Enter phone number').use(phone, 'Invalid phone format')),
-  // проверяем, что строка является целочисленной и не превышает трех символов
   age: simplify(
     v9s<string>()
       .minLength(1, 'Enter age')
@@ -81,23 +87,29 @@ export const validations = {
   )
 } as const;
 
-// промежуточный класс DataModel, который необходим для применения миксинов,
-// так как BaseModel является обобщенным классом
+/**
+ * An intermediate class that required for using TypeScript mixins, because BaseModel is a generic class.
+ */
 class DataModel extends BaseModel<Data> {}
 
-// генерируем тип для объекта, отвечающего за валидацию на основе правил и интерфейса с данными
+/**
+ * Generated validation object type, based on the rules object.
+ */
 export type Validations = PatternAssert<typeof validations, Data>;
 
-// публичный тип модели, который не включает в себя приватные поля и методы миксинов
+/**
+ * The Model's public interface.
+ */
 export type ModelType = Base<Data> & Rollback & Save & Validate<Validations>;
 
-// так как TypeScript не позволяет автоматически выводить тип при применении
-// миксинов, то необходимо явно добавить типы в определение интерфейса
-// класса, иначе приватные и публичные методы и свойства миксинов
-// не будут доступны внутри класса
+/**
+ * The Model's private interface that cannot be inferred automatically since TypeScript limitations.
+ */
 export interface Model extends DataModel, RollbackPrivate<Data>, SavePrivate<Data>, ValidatePrivate<Validations> {}
 
-// класс модели
+/**
+ * Model class.
+ */
 export class Model extends mix<Data, typeof DataModel>(
   DataModel,
   mixRollback(rollbackMask),
