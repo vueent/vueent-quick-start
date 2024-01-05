@@ -11,10 +11,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@vueent/core": "^0.2.0",
-    "@vueent/mix-models": "^0.2.0",
-    "@vueent/reactive": "^0.2.0",
-    "@vueent/store": "^0.2.0",
+    "@vueent/core": "^0.5.0",
+    "@vueent/mix-models": "^0.5.0",
+    "@vueent/reactive": "^0.5.0",
+    "@vueent/store": "^0.5.0",
     "v9s": "^2.0.4",
     "v9sx": "^1.0.1",
     "vue": "^3.2.45",
