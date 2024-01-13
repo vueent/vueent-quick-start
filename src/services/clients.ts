@@ -1,7 +1,7 @@
 import { Service } from '@vueent/core';
-import { tracked } from '@vueent/reactive';
+import { legacyTracked as tracked } from '@vueent/reactive';
 
-import { registerService, injectService as service } from '@/vueent';
+import { registerService, legacyInjectService as service } from '@/vueent';
 import { ClientsCollection } from '@/collections';
 import type { ModelType as Client } from '@/models/client';
 

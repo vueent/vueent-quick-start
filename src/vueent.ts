@@ -4,5 +4,12 @@ import { initVueent } from '@vueent/core';
 /**
  * Initialized VueEnt core instance.
  */
-export const { useVueent, registerService, registerController, useService, useController, injectService, injectController } =
-  initVueent({ onBeforeMount, onMounted, onBeforeUnmount, onUnmounted });
+export const {
+  useVueent,
+  registerService,
+  registerController,
+  useService,
+  useController,
+  legacyInjectService,
+  legacyInjectController
+} = initVueent({ onBeforeMount, onMounted, onBeforeUnmount, onUnmounted });

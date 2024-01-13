@@ -1,6 +1,6 @@
 import { Controller } from '@vueent/core';
 
-import { registerController, injectService as service } from '@/vueent';
+import { registerController, legacyInjectService as service } from '@/vueent';
 import ClientsService from '@/services/clients';
 import type { ModelType as Client } from '@/models/client';
 
